@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<script language="javaScript">
+var req1 = new Promise(function(resolve, reject) { 
+	// A mock async action using setTimeout
+	setTimeout(function() { resolve('First!'); }, 5000);
+});
+var req2 = new Promise(function(resolve, reject) { 
+	// A mock async action using setTimeout
+	setTimeout(function() { resolve('Second!'); }, 3000);
+});
+Promise.race([req1, req2]).then(function(one) {
+	document.getElementById("resolve").innerHTML = one;
+}).catch(function(one, two) {
+	document.getElementById("error").innerHTML = one + ' ' + two;
+});
+
+// From the console:
+// Then: Second!
+</script>
+</head>
+<body>
+<span id='resolve' style='color: blue'></span>
+<span id='error' style='color: red'></span>
+</body>
+</html>
